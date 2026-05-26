@@ -24,7 +24,7 @@ def setColorFont():
             print(f"{CYAN}=============================================={RESET}")
             print("1. Catppuccin Mocha")
             print("2. Dracula")
-            print("3. Nord (Coming Soon)")
+            print("3. Nord")
             print(f"{RED}0. Back to Main Menu{RESET}")
             print(f"{CYAN}----------------------------------------------{RESET}")
 
@@ -91,6 +91,38 @@ def setColorFont():
                 try:
                     shutil.copy(theme_file, PATH)
                     print(f"{YELLOW}Applied Dracula theme..{RESET}")
+                    i = input("Do you want to reload now? [Y/n] ")
+                    if i == "Y" or i == "y" or not i:
+                        subprocess.run(["termux-reload-settings"])
+                    elif i == "N" or i == "n":
+                        break
+                    print(f"{GREEN}[SUCCESS] Successful apply theme!{RESET}")
+                except Exception as e:
+                    print(f"{RED}[ERROR] Failed to apply theme: {e}{RESET}")
+
+                input("\nPress Enter to return...")
+                break
+
+            elif c == "3":
+                theme_file = "themes/nord.properties"
+
+                if not os.path.exists(theme_file):
+                    print(f"{RED}[ERROR] Theme file '{theme_file}' not found!{RESET}")
+                    input("\nPress Enter to continue...")
+                    continue
+
+                # Pastikan folder ~/.termux/ ada sebelum dipakai
+                if not os.path.exists(TERMUX_DIR):
+                    os.makedirs(TERMUX_DIR)
+
+                # Backup file lama jika ada
+                if os.path.exists(PATH):
+                    shutil.copy(PATH, BAC)
+
+                # Salin isi tema ke colors.properties
+                try:
+                    shutil.copy(theme_file, PATH)
+                    print(f"{YELLOW}Applied Nord theme..{RESET}")
                     i = input("Do you want to reload now? [Y/n] ")
                     if i == "Y" or i == "y" or not i:
                         subprocess.run(["termux-reload-settings"])
