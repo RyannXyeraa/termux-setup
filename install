@@ -1,0 +1,14 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+clear
+
+echo "[*] Checking dependencies..."
+
+pkg update -y > /dev/null 2>&1
+
+if ! command -v python >/dev/null 2>&1; then
+    echo "[*] Installing Python..."
+    pkg install python -y > /dev/null 2>&1
+fi
+
+python app/main.py
