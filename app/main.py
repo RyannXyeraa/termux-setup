@@ -15,6 +15,7 @@ def main():
 
             print("1. Customize Theme")
             print("2. Install Packages")
+            print("3. Package Configuration")
             print(f"{RED}0. Exit{RESET}")
 
             choice = input("\n>> ").strip()
@@ -28,6 +29,9 @@ def main():
 
             elif choice == "2":
                 package_menu()
+
+            elif choice == "3":
+                pconfig_menu()
 
             else:
                 print(f"{RED}Invalid option!{RESET}")
