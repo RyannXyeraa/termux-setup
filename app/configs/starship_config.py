@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-import shutil
+import subprocess   
 import time
 
 from constants import *
@@ -17,8 +17,8 @@ STARSHIP_THEMES = {
     ),
 
     "2": (
-        "Dracula",
-        "assets/starship/dracula.toml"
+        "Gruvbox",
+        "assets/starship/gruvbox.toml"
     ),
 
     "3": (
@@ -52,14 +52,39 @@ def apply_starship_theme(theme_name, theme_file):
         input("\nPress Enter to continue...")
         return
 
-    shutil.copy(theme_file, config_path)
+    # Backup old config
+    if os.path.exists(config_path):
+        subprocess.run([
+            "mv",
+            config_path,
+            f"{config_path}.bac"
+        ])
 
-    print(f"{GREEN}[SUCCESS] Applied {theme_name} theme!{RESET}")
+    # Apply new theme
+    result = subprocess.run(
+        [
+            "cp",
+            theme_file,
+            config_path
+        ],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode != 0:
+        print(f"{RED}[ERROR] Failed to apply theme!{RESET}")
+
+        if result.stderr:
+            print(result.stderr)
+
+        input("\nPress Enter to continue...")
+        return
+
+    print(f"{GREEN}[SUCCESS] Applied {theme_name}!{RESET}")
 
     enable_starship()
 
     input("\nPress Enter to continue...")
-
 
 
 def theme_menu():
@@ -67,6 +92,9 @@ def theme_menu():
         clear()
 
         banner("STARSHIP THEMES")
+
+        print(f"{YELLOW}[WARNING] Starship themes require Nerd Font!{RESET}")
+        print(f"{CYAN}[INFO] Install one from Customize Font menu.{RESET}\n")
 
         for key, (name, _) in STARSHIP_THEMES.items():
             print(f"{key}. {name}")
