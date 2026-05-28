@@ -5,6 +5,7 @@ from ui import banner
 from system import clear
 from themes import theme_menu
 from packages import package_menu
+from pconfig import pconfig_menu
 
 def main():
     while True:
