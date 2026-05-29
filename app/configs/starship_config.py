@@ -124,7 +124,10 @@ def preview_starship():
 
     print(f"{CYAN}[INFO] Launching temporary shell preview...{RESET}\n")
 
-    run("starship print-config")
+    run([
+        "starship",
+        "print-config"
+    ])
 
     input("\nPress Enter to continue...")
 
