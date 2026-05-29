@@ -4,6 +4,7 @@ from constants import *
 from ui import banner
 from system import clear
 from themes import theme_menu
+from fonts import font_menu
 from packages import package_menu
 from pconfig import pconfig_menu
 
@@ -15,8 +16,9 @@ def main():
             banner("TERMUX CUSTOM SETUP")
 
             print("1. Customize Theme")
-            print("2. Install Packages")
-            print("3. Package Configuration")
+            print("2. Customize Font")
+            print("3. Install Packages")
+            print("4. Package Configuration")
             print(f"{RED}0. Exit{RESET}")
 
             choice = input("\n>> ").strip()
@@ -29,9 +31,12 @@ def main():
                 theme_menu()
 
             elif choice == "2":
-                package_menu()
+                font_menu()
 
             elif choice == "3":
+                package_menu()
+
+            elif choice == "4":
                 pconfig_menu()
 
             else:

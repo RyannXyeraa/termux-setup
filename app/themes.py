@@ -27,7 +27,7 @@ def apply_theme(name, theme_path):
     reload_choice = input("Reload Termux now? [Y/n] ").strip().lower()
 
     if reload_choice in ["", "y"]:
-        run("termux-reload-settings")
+        run(["termux-reload-settings"])
 
     input("\nPress Enter to continue...")
 
